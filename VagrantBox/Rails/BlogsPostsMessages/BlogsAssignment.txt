@@ -1,0 +1,84 @@
+# Initial commands
+rails new BlogsPostsMessages
+rails g model Blog name:string description:text
+rails g model Post title:string content:text blog:references
+rails g model Message author:string message:text post:references
+rake db:migrate
+
+# Implement the following validations:
+class Blog < ActiveRecord::Base
+  has_many :posts
+
+  # 1. require the presence of name and description for the blog.
+  validates :name, :description, presence: true
+end
+
+class Post < ActiveRecord::Base
+  has_many :messages
+  belongs_to :blog
+
+  # 2. require the presence of title and content for the posts, require the title to be at least 7 characters long.
+  validates :content, presence: true
+  validates :title, length: { minimum: 7 }
+end
+
+class Message < ActiveRecord::Base
+  belongs_to :post
+
+  # 3. require author and message for the messages. Require the message to be at least 15 characters long.
+  validates :author, :message, presence: true
+end
+
+# Using the console:
+# 1. create 5 new blogs.
+> Blog.create(name: 'First Blog', description: 'blog number 1')
+> Blog.create(name: 'Second Blog', description: 'blog number 2')
+> Blog.create(name: 'Third Blog', description: 'blog number 3')
+> Blog.create(name: 'Fourth Blog', description: 'blog number 4')
+> Blog.create(name: 'Fifth Blog', description: 'blog number 5')
+
+# 2. create several posts for each blog
+> Post.create(title: 'First Post', content: 'Blog 1 Post 1', blog: Blog.first)
+> Post.create(title: 'Second Post', content: 'Blog 1 Post 2', blog: Blog.first)
+> Post.create(title: 'Third Post', content: 'Blog 1 Post 3', blog: Blog.first)
+> Post.create(title: 'Fourth Post', content: 'Blog 2 Post 1', blog: Blog.second)
+> Post.create(title: 'Fifth Post', content: 'Blog 2 Post 2', blog: Blog.second)
+> Post.create(title: 'Sixth Post', content: 'Blog 2 Post 3', blog: Blog.second)
+> Post.create(title: 'Seventh Post', content: 'Blog 3 Post 1', blog: Blog.third)
+> Post.create(title: 'Eighth Post', content: 'Blog 3 Post 2', blog: Blog.third)
+> Post.create(title: 'Ninth Post', content: 'Blog 4 Post 1', blog: Blog.fourth)
+> Post.create(title: 'Tenth Post', content: 'Blog 4 Post 2', blog: Blog.fourth)
+> Post.create(title: 'Eleventh Post', content: 'Blog 5 Post 1', blog: Blog.fifth)
+> Post.create(title: 'Twelvth Post', content: 'Blog 5 Post 2', blog: Blog.fifth)
+
+
+# 3. create several messages for the first post.
+> Message.create(author: 'Jim Bob', message: 'This message better work', post: Post.first)
+> Message.create(author: 'Tiny Smalls', message: 'First post is the best post', post: Post.first)
+> Message.create(author: 'Craig Furgeson', message: 'Post is on fire yo', post: Post.first)
+
+# 4. know how to retrieve all posts for the first blog.
+Blog.first.posts
+
+# 5. know how to retrieve all posts for the last blog (sorted by title in the DESC order).
+Post.where(blog: Blog.last).order(title: :desc)
+
+# 6. know how to update the first post's title.
+Post.first.update(title: "Updating the title")
+
+# 7. know how to delete the third post (have the model automatically delete all messages associated with the third post when you delete the third post).
+class Post < ActiveRecord::Base
+  has_many :messages, dependent: :destroy
+  belongs_to :blog
+
+  validates :content, presence: true
+  validates :title, length: { minimum: 7 }
+end
+
+Post.third.destroy
+
+# 8. know how to retrieve all blogs.
+Blog.all
+
+# 9. know how to retrieve all blogs whose id is less than 5.
+Blog.where("id < 5")

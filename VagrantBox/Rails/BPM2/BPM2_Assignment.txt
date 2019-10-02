@@ -1,0 +1,171 @@
+#1 Create 5 users
+
+2.6.3 :014 > User.all.select(:first_name, :last_name, :email)
+  User Load (4.1ms)  SELECT "users"."first_name", "users"."last_name", "users"."email" FROM "users"
++----+------------+-----------+-----------------------+
+| id | first_name | last_name | email                 |
++----+------------+-----------+-----------------------+
+|    | Kevin      | Camp      | kcamp4632@yahoo.com   |
+|    | Bob        | Vila      | bobvila@aol.com       |
+|    | John       | Doe       | johndoe@gmail.com     |
+|    | Jane       | Doe       | janedoe@gmail.com     |
+|    | Jimmy      | Dean      | sausageking@gmail.com |
++----+------------+-----------+-----------------------+
+5 rows in set
+
+
+#2 Create 5 blogs
+
+2.6.3 :013 > Blog.all.select(:id, :name, :description)
+  Blog Load (4.3ms)  SELECT "blogs"."id", "blogs"."name", "blogs"."description" FROM "blogs"
++----+-------------+---------------+
+| id | name        | description   |
++----+-------------+---------------+
+| 1  | First Blog  | Blog number 1 |
+| 2  | Second Blog | Blog number 2 |
+| 3  | Third Blog  | Blog number 3 |
+| 4  | Fourth Blog | Blog number 4 |
+| 5  | Fifth Blog  | Blog number 5 |
++----+-------------+---------------+
+5 rows in set
+
+
+#3 Have the first 3 blogs be owned by the first user
+
+2.6.3 :018 > Owner.all
+  Owner Load (9.9ms)  SELECT "owners".* FROM "owners"
++----+---------+---------+-------------------------+-------------------------+
+| id | user_id | blog_id | created_at              | updated_at              |
++----+---------+---------+-------------------------+-------------------------+
+| 1  | 1       | 1       | 2019-10-01 20:38:53 UTC | 2019-10-01 20:38:53 UTC |
+| 2  | 1       | 2       | 2019-10-01 20:39:03 UTC | 2019-10-01 20:39:03 UTC |
+| 3  | 1       | 3       | 2019-10-01 20:39:07 UTC | 2019-10-01 20:39:07 UTC |
++----+---------+---------+-------------------------+-------------------------+
+3 rows in set
+
+
+#4 Have the 4th blog you create be owned by the second user
+> Owner.create(blog: Blog.find(4), user: User.second)
+
+
+#5 Have the 5th blog you create be owned by the last user
+
+> Owner.create(blog: Blog.find(5), user: User.last)
+
+
+#6 Have the third user own all of the blogs that were created.
+
+2.6.3 :027 > Owner.all
+  Owner Load (10.4ms)  SELECT "owners".* FROM "owners"
++----+---------+---------+-------------------------+-------------------------+
+| id | user_id | blog_id | created_at              | updated_at              |
++----+---------+---------+-------------------------+-------------------------+
+| 1  | 1       | 1       | 2019-10-01 20:38:53 UTC | 2019-10-01 20:38:53 UTC |
+| 2  | 1       | 2       | 2019-10-01 20:39:03 UTC | 2019-10-01 20:39:03 UTC |
+| 3  | 1       | 3       | 2019-10-01 20:39:07 UTC | 2019-10-01 20:39:07 UTC |
+| 4  | 2       | 4       | 2019-10-01 20:40:22 UTC | 2019-10-01 20:40:22 UTC |
+| 5  | 5       | 5       | 2019-10-01 20:41:04 UTC | 2019-10-01 20:41:04 UTC |
+| 6  | 3       | 5       | 2019-10-01 20:42:19 UTC | 2019-10-01 20:42:19 UTC |
+| 7  | 3       | 4       | 2019-10-01 20:42:24 UTC | 2019-10-01 20:42:24 UTC |
+| 8  | 3       | 3       | 2019-10-01 20:42:27 UTC | 2019-10-01 20:42:27 UTC |
+| 9  | 3       | 2       | 2019-10-01 20:42:31 UTC | 2019-10-01 20:42:31 UTC |
+| 10 | 3       | 1       | 2019-10-01 20:42:34 UTC | 2019-10-01 20:42:34 UTC |
++----+---------+---------+-------------------------+-------------------------+
+10 rows in set
+
+#7 Have the first user create 3 posts for the blog with an id of 2. Remember that you shouldn't do Post.create(user: User.first, blog_id: 2) but more like Post.create(user: User.first, blog: Blog.find(2)). Again, you should never reference the foreign key in Rails.
+
+> Post.create(title: 'First Post', content: 'Blog 2 Post 1', user: User.first, blog: Blog.find(2))  etc.
+
+
+#8 Have the second user create 5 posts for the last Blog.
+
+> Post.create(title: 'Fourth Post', content: 'Blog 5 Post 1', user: User.second, blog: Blog.last)   etc.
+
+
+#9 Have the 3rd user create several posts for different blogs.
+
+> Post.create(title: 'Ninth Post', content: 'Blog 1 Post 1', user: User.third, blog: Blog.first)  etc.
+
+#10 Have the 3rd user create 2 messages for the first post created and 3 messages for the second post created
+
+> Message.create(author: "John Doe", message: "1st message", post: Post.first, user: User.third)  etc.
+> Message.create(author: "John Doe", message: "3rd message", post: Post.second, user: User.third)  etc.
+
+#11 Have the 4th user create 3 messages for the last post you created.
+
+> Message.create(author: "Jane Doe", message: "8th message", post: Post.last, user: User.find(4))  etc.
+
+#12 Change the owner of the 2nd post to the last user.
+** should read change the user - owner has no relation to post in ERD
+
+> Post.update(2, :user => User.last)
+
+#13 Change the 2nd post's content to be something else.
+
+> Post.update(2, :content => "NEw ConTent")
+
+#14 Retrieve all blogs owned by the 3rd user (make this work by simply doing: User.find(3).blogs).
+
++----+-------------+---------------+
+| id | name        | description   |
++----+-------------+---------------+
+| 5  | Fifth Blog  | Blog number 5 |
+| 4  | Fourth Blog | Blog number 4 |
+| 3  | Third Blog  | Blog number 3 |
+| 2  | Second Blog | Blog number 2 |
+| 1  | First Blog  | Blog number 1 |
++----+-------------+---------------+
+
+#15 Retrieve all posts that were created by the 3rd user
+
+User.find(3).posts  (I only made 1 - this is a super repetitive assignment)
+
++----+------------+---------------+---------+---------+
+| id | title      | content       | blog_id | user_id |
++----+------------+---------------+---------+---------+
+| 9  | Ninth Post | Blog 1 Post 1 | 1       | 3       |
++----+------------+---------------+---------+---------+
+
+#16 Retrieve all messages left by the 3rd user
++----+----------+-------------+---------+---------+
+| id | author   | message     | post_id | user_id |
++----+----------+-------------+---------+---------+
+| 1  | John Doe | 1st message | 1       | 3       |
+| 2  | John Doe | 2st message | 1       | 3       |
+| 3  | John Doe | 3rd message | 2       | 3       |
+| 4  | John Doe | 4th message | 2       | 3       |
+| 5  | John Doe | 5th message | 2       | 3       |
++----+----------+-------------+---------+---------+
+
+#17 Retrieve all posts associated with the blog id 5 as well as who left these posts.
+
++----+--------------+---------------+---------+---------+
+| id | title        | content       | blog_id | user_id |
++----+--------------+---------------+---------+---------+
+| 4  | Fourth Post  | Blog 5 Post 1 | 5       | 2       |
+| 5  | Fifth Post   | Blog 5 Post 2 | 5       | 2       |
+| 6  | Sixth Post   | Blog 5 Post 3 | 5       | 2       |
+| 7  | Seventh Post | Blog 5 Post 4 | 5       | 2       |
+| 8  | Eighth Post  | Blog 5 Post 5 | 5       | 2       |
++----+--------------+---------------+---------+---------+
+
+#18 Retrieve all messages associated with the blog id 5 along with all the user information of those who left the messages
+
+Didn't have any
+
+#19 Grab all user information of those that own the first blog (make this work by allowing Blog.first.owners to work).
+
+2.6.3 :014 > Blog.first.owners
+  Blog Load (2.7ms)  SELECT  "blogs".* FROM "blogs" ORDER BY "blogs"."id" ASC LIMIT ?  [["LIMIT", 1]]
+  Owner Load (2.1ms)  SELECT "owners".* FROM "owners" WHERE "owners"."blog_id" = ?  [["blog_id", 1]]
++----+---------+---------+-------------------------+-------------------------+
+| id | user_id | blog_id | created_at              | updated_at              |
++----+---------+---------+-------------------------+-------------------------+
+| 1  | 1       | 1       | 2019-10-01 20:38:53 UTC | 2019-10-01 20:38:53 UTC |
+| 10 | 3       | 1       | 2019-10-01 20:42:34 UTC | 2019-10-01 20:42:34 UTC |
++----+---------+---------+-------------------------+-------------------------+
+
+#20 Grab all user information of those that own the first blog (make this work by allowing Blog.first.owners to work).
+
+Owner.find(1).destroy
