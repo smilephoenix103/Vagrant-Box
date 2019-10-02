@@ -1,0 +1,10 @@
+# add Comment table
+> rails g model Comment comment:text comment_on:references{polymorphic}
+
+# add to user.rb, blog.rb, post.rb, message.rb
+has_many :comments, as: :comment_on
+
+# add comments
+> Comment.create(comment: "Hello Kevin!", comment_on_type: 'User', comment_on_id: 1)
+> Comment.create(comment: "Blog 2 is awesome", comment_on: Blog.second)
+> Comment.create(comment: "Post 3, what up?", comment_on_id: 3, comment_on_type: 'Post')

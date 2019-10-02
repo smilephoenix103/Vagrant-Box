@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :owners
   has_many :blogs, through: :owners
+  has_many :comments, as: :comment_on
 
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
   validates :first_name, :last_name, presence: true, length: { in: 2..20 }

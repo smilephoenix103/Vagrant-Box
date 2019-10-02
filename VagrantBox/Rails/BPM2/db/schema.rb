@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_201146) do
+ActiveRecord::Schema.define(version: 2019_10_02_164814) do
 
   create_table "blogs", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "comment"
+    t.string "comment_on_type"
+    t.integer "comment_on_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_on_type", "comment_on_id"], name: "index_comments_on_comment_on_type_and_comment_on_id"
   end
 
   create_table "messages", force: :cascade do |t|
