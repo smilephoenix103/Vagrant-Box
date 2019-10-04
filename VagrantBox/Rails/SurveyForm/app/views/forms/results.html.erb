@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-2">Submitted Information</h1>
+    </div>
+    <div>
+        <table class="table">
+          <tr>
+            <td>Name:</td>
+            <td><%= @results['name'] %></td>
+          </tr>
+          <tr>
+            <td>Dojo Location:</td>
+            <td><%= @results['location'] %></td>
+          </tr>
+          <tr>
+            <td>Favorite Language:</td>
+            <td><%= @results['language'] %></td>
+          </tr>
+          <tr>
+            <td>Comment:</td>
+            <td><%= @results['comment'] %></td>
+          </tr>
+        </table>
+        <a href="/"><button class="form-control btn btn-info">Go Back</button></a>
+    </div>
+    <% if flash[:success] %>
+      <p class="text-success font-weight-bold"><%= flash[:success] %></p>
+    <% end %>
+</div>

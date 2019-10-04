@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-2">Survey Form</h1>
+    </div>
+    <form action="/surveys" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <table class="table">
+            <tr>
+                <td><label for="name">Your Name:</label></td>
+                <td><input class="form-control" id="name" type="text" name="survey[name]"></td>
+            </tr>
+            <tr>
+                <td><label for="location">Dojo Location:</label></td>
+                <td><select class="form-control" id="location" name="survey[location]">
+                    <option value="Dallas, TX">Dallas, TX</option>
+                    <option value="Mountain View, CA">Mountian View, CA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td><label for="language">Favorite Language:</label></td>
+                <td><select class="form-control" id="language" name="survey[language]">
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    <option value="Ruby">Ruby</option>
+                </select></td>
+            </tr>
+        </table>
+        <label for="comment">Comment (optional):</label>
+        <textarea class="form-control" name="survey[comment]" rows="2" cols="50"></textarea>
+        <button class="form-control btn btn-primary font-weight-bold mt-5" type="submit">Submit</button>
+    </form>
+</div>

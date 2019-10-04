@@ -1,0 +1,26 @@
+// Place all the styles related to the Forms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+    padding: 25px;
+    text-align: center;
+}
+
+input, select, textarea {
+    margin: 5px;
+    padding: 5px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.jumbotron {
+    padding: 20px !important;
+}
+
+td {
+    border: none !important;
+}
