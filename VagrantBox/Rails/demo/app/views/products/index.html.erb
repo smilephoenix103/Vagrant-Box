@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-1">Products Index</h1>
+  </div>
+  <div class="products">
+    <% @products.each do |product| %>
+    <div class="product">
+      <img src="<%= product.imgurl %> " alt="pic">
+      <h4><%= product.name %></h4>
+      <h5><%= product.price %></h5>
+    </div>
+    <% end %>
+  </div>
+  <a href="/products/new"><button class="btn btn-info">Add Product</button></a>
+</div>
