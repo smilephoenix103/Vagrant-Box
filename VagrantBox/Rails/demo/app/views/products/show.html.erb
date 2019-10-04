@@ -2,5 +2,9 @@
   <div class="jumbotron">
     <h1 class="display-1">Show Product</h1>
   </div>
-  <a href="/products/1/edit"><button class="btn btn-info">Edit Product</button></a>
+  <h2><%= @product.name %></h2>
+  <img class="bigimg" src="<%= @product.imgurl %>" alt="pic">
+  <h2>$<%= @product.price %></h2>
+  <h3><%= @product.description %></h3>
+  <a href="/products/<%= @product.id %>/edit"><button class="btn btn-info">Edit Product</button></a>
 </div>

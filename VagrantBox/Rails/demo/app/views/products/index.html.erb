@@ -5,11 +5,14 @@
   <div class="products">
     <% @products.each do |product| %>
     <div class="product">
-      <img src="<%= product.imgurl %> " alt="pic">
+      <a href="/products/<%= product.id %>"><img src="<%= product.imgurl %> " alt="pic"></a>
       <h4><%= product.name %></h4>
-      <h5><%= product.price %></h5>
+      <h5>$<%= product.price %></h5>
     </div>
     <% end %>
   </div>
   <a href="/products/new"><button class="btn btn-info">Add Product</button></a>
+  <% if flash[:success] %>
+    <p class="text-success font-weight-bold"><%= flash[:success] %></p>
+  <% end %>
 </div>

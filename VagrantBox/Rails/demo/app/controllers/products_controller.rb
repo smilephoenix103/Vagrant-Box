@@ -9,8 +9,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create()
-    redirect_to 'index'
+    product = Product.create(product_params)
+    if product.errors.any?
+      flash[:errors] = product.errors.full_messages
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:success] = "New Product Added"
+      redirect_to '/'
+    end
   end
 
   def show
@@ -23,14 +29,19 @@ class ProductsController < ApplicationController
     render 'edit'
   end
 
-  def udpate
-    @product = Product.update()
-    redirect_to 'index'
+  def update
+    product = Product.find(params[:id]).update(product_params)
+    redirect_to "/products/#{params[:id]}"
   end
 
   def destroy
-    Product.destroy(params[:id])
-    redirect_to 'index'
+    Product.find(params[:id]).delete
+    redirect_to '/'
+  end
+
+  private
+  def product_params
+    params.require(:product).permit(:name, :price, :description, :imgurl)
   end
 
 end

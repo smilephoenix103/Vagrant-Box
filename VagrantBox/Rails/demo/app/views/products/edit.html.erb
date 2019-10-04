@@ -1,22 +1,29 @@
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-1">dit Product</h1>
+    <h1 class="display-1">Edit Product</h1>
   </div>
-  <form class="" action="index.html" method="post">
+  <form class="form" action="/products/<%= @product.id %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="patch">
     <table class="table">
       <tr>
         <td><label for="name">Name:</label></td>
-        <td><input class="form-control" id="name" type="text" name="name"></td>
+        <td><input class="form-control" id="name" type="text" name="product[name]" value="<%= @product.name %>"></td>
       </tr>
       <tr>
         <td><label for="price">Price:</label></td>
-        <td><input class="form-control" id="price" type="number" name="price"></td>
+        <td><input class="form-control" id="price" type="number" step=.01 name="product[price]" value="<%= @product.price %>"></td>
       </tr>
       <tr>
         <td><label for="description">Description:</label></td>
-        <td><textarea class="form-control" id="description" name="description" rows="4" cols="22"></textarea></td>
+        <td><textarea class="form-control" id="description" name="product[description]" rows="4" cols="22"><%= @product.description %></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="imgurl">Image URL:</label></td>
+        <td><input class="form-control" id="imgurl" type="text" name="product[imgurl]" value="<%= @product.imgurl %>"></td>
       </tr>
     </table>
-    <button class="form-control btn btn-primary" type="submit">Add Product</button>
+    <button class="form-control btn btn-primary" type="submit">Update Product</button>
+    <a href="/products/<%= @product.id %>" data-method="delete"><button class="form-control btn btn-danger"type="button">Delete Product</button></a>
   </form>
 </div>
