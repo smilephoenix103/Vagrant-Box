@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-1">Create Product</h1>
+  </div>
+  <form action="/products" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <table class="table">
+      <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input class="form-control" id="name" type="text" name="product[name]"></td>
+      </tr>
+      <tr>
+        <td><label for="price">Price:</label></td>
+        <td><input class="form-control" id="price" type="number" step=".01" name="product[price]"></td>
+      </tr>
+      <tr>
+        <td><label for="description">Description:</label></td>
+        <td><textarea class="form-control" id="description" name="product[description]" rows="4" cols="22"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="imgurl">Image URL:</label></td>
+        <td><input class="form-control" id="imgurl" type="text" name="product[imgurl]"></td>
+      </tr>
+    </table>
+    <button class="form-control btn btn-success" type="submit">Create Product</button>
+    <a href="/"><button class="form-control btn btn-info">Go Back</button></a>
+  </form>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <p class="errors"><%= error %></p>
+    <% end %>
+  <% end %>
+</div>
+
