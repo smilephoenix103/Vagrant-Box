@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add New User</title>
+  </head>
+  <body>
+    <h1>Add New User</h1>
+    <form action="/users/new" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <table>
+        <tr>
+          <td><label for="first_name">First Name:</label></td>
+          <td><input type="text" name="first_name"></td>
+        </tr>
+        <tr>
+          <td><label for="last_name">Last Name:</label></td>
+          <td><input type="text" name="last_name"></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email:</label></td>
+          <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="submit">Add User</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
