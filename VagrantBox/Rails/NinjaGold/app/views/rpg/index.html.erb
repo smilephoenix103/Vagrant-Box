@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Ninja Gold</h1>
+    </div>
+    <div>
+        <h3 class="inline">Your Gold:</h3>
+        <h3 class="box"><%= @gold %></h3>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Farm</h2>
+            <p>(earns 10-20 gold)</p>
+            <a href="/farm"><button class="btn btn-primary">Find Gold!</button></a>
+        </div>
+        <div class="col">
+            <h2>Cave</h2>
+            <p>(earns 5-10 gold)</p>
+            <a href="/cave"><button class="btn btn-primary">Find Gold!</button></a>
+        </div>
+        <div class="col">
+            <h2>House</h2>
+            <p>(earns 2-5 gold)</p>
+            <a href="/house"><button class="btn btn-primary">Find Gold!</button></a>
+        </div>
+        <div class="col">
+            <h2>Casino</h2>
+            <p>(earns/takes 0-50 gold)</p>
+            <a href="/casino"><button class="btn btn-primary">Find Gold!</button></a>
+        </div>
+    </div>
+    <div class="activities">
+        <% if @activities %>
+            <% for activity in @activities %>
+                <p class="activity"><%= activity %></p>
+            <% end %>
+        <% end %> 
+    </div>
+    <a href="/reset"><button class="btn btn-warning">Clear Session</button></a>
+</div>
