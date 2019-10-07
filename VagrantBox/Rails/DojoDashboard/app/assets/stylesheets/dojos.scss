@@ -1,0 +1,26 @@
+// Place all the styles related to the Dojos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+button {
+    font-weight: bold !important;
+    margin: 5px;
+}
+
+.container {
+    padding: 25px;
+    text-align: center;
+}
+
+input {
+    margin: 5px;
+    padding: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+td, th{
+    font-size: 1.25em; 
+    padding: 20px;
+}

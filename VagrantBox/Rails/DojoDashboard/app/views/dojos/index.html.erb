@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Listing Dojos</h1>
+    </div>
+    <table>
+        <thead>
+            <th>Branch</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Actions</th>
+        </thead>
+        <% for dojo in @dojos %>
+            <tr>
+                <td><%= dojo.branch %></td>
+                <td><%= dojo.street %></td>
+                <td><%= dojo.city %></td>
+                <td><%= dojo.state %></td>
+                <td>
+                <a href="/dojos/<%= dojo.id %>"><button class="btn btn-sm btn-info">Show</button></a>
+                <a href="/dojos/<%= dojo.id %>/edit"><button class="btn btn-sm btn-primary">Edit</button></a>
+                <a href="/dojos/<%= dojo.id %>" data-method="delete"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+            </tr>
+        <% end %>
+    </table>
+    <a href="/dojos/new"><button class="btn btn-success m-5">New Dojo</button></a>
+</div>

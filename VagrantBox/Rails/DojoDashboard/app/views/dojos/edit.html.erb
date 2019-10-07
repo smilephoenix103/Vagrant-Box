@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Edit <%= @dojo.branch%></h1>
+    </div>
+    <form action="/dojos/<%= @dojo.id %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="put">
+        <table>
+        <tr>
+            <td><label for="branch">Branch:</label></td>
+            <td><input type="text" name="dojo[branch]" id="branch" value="<%= @dojo.branch %>"></td>
+        </tr>
+        <tr>
+            <td><label for="street">Street:</label></td>
+            <td><input type="text" name="dojo[street]" id="street" value="<%= @dojo.street %>"></td>
+        </tr>
+        <tr>
+            <td><label for="city">City:</label></td>
+            <td><input type="text" name="dojo[city]" id="city" value="<%= @dojo.city %>"></td>
+        </tr>
+        <tr>
+            <td><label for="state">State:</label></td>
+            <td><input type="text" name="dojo[state]" id="state" value="<%= @dojo.state %>"></td>
+        </tr>
+    </table>
+    <button class="btn btn-success" type="submit">Update</button>
+    <a href="/"><button class="btn btn-primary">Home</button></a>
+    <a href="/dojos/<%= @dojo.id %>"><button class="btn btn-info">Show</button></a>
+    </form>
+</div>

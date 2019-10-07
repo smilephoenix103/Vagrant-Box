@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>New Dojo</h1>
+    </div>
+    <form action="/dojos" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <table>
+        <tr>
+            <td><label for="branch">Branch:</label></td>
+            <td><input type="text" name="dojo[branch]" id="branch"></td>
+        </tr>
+        <tr>
+            <td><label for="street">Street:</label></td>
+            <td><input type="text" name="dojo[street]" id="street"></td>
+        </tr>
+        <tr>
+            <td><label for="city">City:</label></td>
+            <td><input type="text" name="dojo[city]" id="city"></td>
+        </tr>
+        <tr>
+            <td><label for="state">State:</label></td>
+            <td><input type="text" name="dojo[state]" id="state"></td>
+        </tr>
+    </table>
+    <button class="btn btn-success" type="submit">Create</button>
+    <a href="/"><button class="btn btn-info">Home</button></a>
+    </form>
+</div>
