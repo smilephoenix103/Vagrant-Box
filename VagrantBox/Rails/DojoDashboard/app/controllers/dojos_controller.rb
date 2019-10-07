@@ -1,6 +1,7 @@
 class DojosController < ApplicationController
   def index
     @dojos = Dojo.all
+    @count = Dojo.count
     render 'index'
   end
 
@@ -12,7 +13,7 @@ class DojosController < ApplicationController
     dojo = Dojo.create(dojo_params)
     if dojo.errors.any?
       flash[:errors] = dojo.errors.full_messages
-      redirect_back
+      redirect_back(fallback_location: root_path)
     else
       flash[:success] = "New Dojo Added"
       redirect_to '/'

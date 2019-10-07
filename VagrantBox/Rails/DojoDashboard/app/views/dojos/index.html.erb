@@ -1,8 +1,8 @@
 <div class="container">
     <div class="jumbotron">
-        <h1>Listing Dojos</h1>
+        <h1>Listing <%= @count %> Dojos</h1>
     </div>
-    <table>
+    <table class="table table-responsive tall">
         <thead>
             <th>Branch</th>
             <th>Street</th>
@@ -23,5 +23,8 @@
             </tr>
         <% end %>
     </table>
-    <a href="/dojos/new"><button class="btn btn-success m-5">New Dojo</button></a>
+    <a href="/dojos/new"><button class="btn btn-success mt-5">New Dojo</button></a>
+    <% if flash[:success] %>
+        <p class="text-success font-weight-bold m-0"><%= flash[:success] %></p>
+    <% end %>
 </div>

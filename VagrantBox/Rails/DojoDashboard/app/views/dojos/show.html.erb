@@ -4,6 +4,7 @@
     </div>
     <h2>Address: <%= @dojo.street %></h2>
     <h2>City: <%= @dojo.city %> State: <%= @dojo.state %></h2>
-    <a href="/"><button class="btn btn-info m-2">Home</button></a>
+    <a href="/"><button class="btn btn-primary m-2">Home</button></a>
     <a href="/dojos/<%= @dojo.id %>/edit"><button class="btn btn-success m-2">Edit</button></a>
+    <a href="/dojos/<%= @dojo.id %>/students"><button class="btn btn-info">Students</button></a>
 </div>

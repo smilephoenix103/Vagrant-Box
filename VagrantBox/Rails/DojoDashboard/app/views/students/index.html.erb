@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1><%= @dojo.branch%></h1>
+        <a href="/dojos/<%= @dojo.id %>/edit"><button class="btn btn-success m-2">Edit</button></a>
+    </div>
+    <h4>Address: <%= @dojo.street %></h4>
+    <h4>City: <%= @dojo.city %> State: <%= @dojo.state %></h4>
+    <h3>Student Roster:</h3>
+    <div>
+    
+    </div>
+    <table class="table table-responsive">
+        <thead>
+            <th>First Name:</th>
+            <th>Last Name:</th>
+            <th>Email:</th>
+            <th>Actions:</th>
+        </thead>
+        <% for student in @dojo.students %>
+            <tr>
+                <td><%= student.first_name %></td>
+                <td><%= student.last_name %></td>
+                <td><%= student.email %></td>
+                <td>
+                    <a href="/dojos/<%= @dojo.id %>/students/<%= student.id %>"><button class="btn btn-sm btn-info">Show</button></a>
+                    <a href="/dojos/<%= @dojo.id %>/students/<%= student.id %>/edit"><button class="btn btn-sm btn-success">Edit</button></a>
+                    <a href="/dojos/<%= @dojo.id %>/students/<%= student.id %>" data-method="delete"><button class="btn btn-sm btn-danger">Delete</button></a>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+    <a href="/"><button class="btn btn-info m-2">Home</button></a>
+    <a href="/dojos/<%= @dojo.id %>/students/new"><button class="btn btn-success">Add Student</button></a>
+</div>

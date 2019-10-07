@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>New Student</h1>
+    </div>
+    <form action="/dojos/<%= @dojo.id %>/students" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <table>
+            <tr>
+                <td><label for="first_name">First Name:</label></td>
+                <td><input type="text" id="first_name" name="student[first_name]"></td>
+            </tr>
+            <tr>
+                <td><label for="last_name">Last Name:</label></td>
+                <td><input type="text" id="last_name" name="student[last_name]"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="text" id="email" name="student[email]"></td>
+            </tr>
+            <tr>
+                <td><label for="dojo_id">Dojo:</label></td>
+                <td><select name="student[dojo_id]" id="dojo_id">
+                    <option value="<%= @dojo.id %>"><%= @dojo.branch %></option>
+                    <% for dojo in @dojos %>
+                        <option value="<%= dojo.id %>"><%= dojo.branch %></option>
+                    <% end %>
+                </select></td>
+            </tr>
+        </table>
+        <button class="btn btn-success" type="submit">Create</button>
+        <a href="/"><button class="btn btn-primary">Home</button></a>
+        <a href="/dojos/<%= @dojo.id %>/students"><button class="btn btn-info"><%= @dojo.city %></button></a>
+    </form>
+        <% if flash[:errors] %>
+        <% for error in flash[:errors] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
+    <% if flash[:success] %>
+        <p class="text-success font-weight-bold"><%= flash[:success] %></p>
+    <% end %>
+</div>

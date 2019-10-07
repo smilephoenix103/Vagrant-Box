@@ -25,4 +25,9 @@
     <button class="btn btn-success" type="submit">Create</button>
     <a href="/"><button class="btn btn-info">Home</button></a>
     </form>
+    <% if flash[:errors] %>
+        <% for error in flash[:errors] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
 </div>
