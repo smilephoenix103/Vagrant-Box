@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   def index
+    puts "YAHAHAH"
     @products = Product.all
     render 'index'
   end
