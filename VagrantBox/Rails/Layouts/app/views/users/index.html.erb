@@ -1,0 +1,50 @@
+<% content_for :left_column do %>
+<h1>All Users</h1>
+<table class="table">
+  <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Favorite Language</th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.favorite_language %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<% content_for :right_column do %>
+<h1>New User</h1>
+<form action="/users" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <table>
+    <tr>
+      <td><label for="first_name">First Name:</label></td>
+      <td><input id="first_name" type="text" name="user[first_name]"></td>
+    </tr>
+    <tr>
+      <td><label for="last_name">Last Name:</label></td>
+      <td><input id="last_name" type="text" name="user[last_name]"></td>
+    </tr>
+    <tr>
+      <td><label for="favorite_language">Favorite Language:</label></td>
+      <td><input id="favorite_language" type="text" name="user[favorite_language]"></td>
+    </tr>
+  </table>
+  <button class="btn btn-outline-primary m-1" type="submit">Submit</button>
+</form>
+<a href="/posts"><button class="btn btn-outline-info m-1" type="button">Posts</button></a>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <p style="color: red;"><%= error %></p>
+  <% end %>
+<% end %>
+<% if flash[:success] %>
+  <p><%= flash[:success] %></p>
+<% end %>
+<% end %>
