@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="header pb-2 mt-4 mb-2 border-bottom">
+        <h4>CodingDojo Wall</h4>
+        <h3>Welcome <%= @user.username %></h3>
+        <a href="/logout">Log Out</a>
+    </div>
+    <div id="message_div">
+        <% if flash[:messages] %>
+        <% for m in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= m %></p>
+        <% end %>
+    <% end %>
+    <h1>Post a Message</h1>
+    <form action="/messages" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="row">
+            <div class="col-4">
+                <textarea name="message[message]" id="message" cols="50" rows="4"></textarea>
+            </div>
+            <div class="col-8">
+                <button class="btn btn-primary" type="submit" id="submit">Post a Message</button>
+            </div>
+        </div>
+    </form>
+    <% for message in @messages %>
+        <p class="font-weight-bold"><%= message.user.username %> - <%= message.created_at %></p>
+        <p class="font-weight-bold"><%= message.message %></p>
+        <form class="indent" action="/comments/<%= message.id %>" method ="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="row">
+                <div class="col-4">
+                    <textarea name="comment[comment]" id="comment" cols="50" rows="2"></textarea>
+                </div>
+                <div class="col-8">
+                    <button class="btn btn-primary" type="submit" id="submit">Post a Comment</button>
+                </div>
+            </div>
+        </form>
+    <% end %>
+    </div>
+</div>

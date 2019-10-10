@@ -1,0 +1,23 @@
+// Place all the styles related to the Messages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.header h3, h4, a {
+    display: inline-block;
+}
+
+.header h3 {
+    margin: 0 50px 0 500px;
+}
+
+.indent {
+    margin-left: 40px;
+}
+
+#message_div {
+    text-align: left;
+}
+
+textarea {
+    border-radius: 5px;
+    padding: 5px;
+}

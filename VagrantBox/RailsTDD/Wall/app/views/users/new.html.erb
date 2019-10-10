@@ -1,0 +1,13 @@
+<div class="container">
+    <h1>SIGN IN</h1>
+    <form action="/users" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input id="username" type="text" name="user[username]" placeholder="username">
+        <button class="btn btn-primary" type="submit" id="submit">Sign In</button>
+    </form>
+    <% if flash[:messages] %>
+        <% for m in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= m %></p>
+        <% end %>
+    <% end %>
+</div>
