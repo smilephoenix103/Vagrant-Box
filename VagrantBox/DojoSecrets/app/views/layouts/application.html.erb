@@ -10,6 +10,11 @@
   </head>
 
   <body>
-    <%= yield %>
+  <%= yield %>
+  <div class="container">
+    <% if current_user %>
+      <a href="/sessions/logout" id="logout">Logout</a>
+    <% end %>
+  </div>
   </body>
 </html>

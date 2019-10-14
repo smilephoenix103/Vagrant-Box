@@ -1,0 +1,23 @@
+// Place all the styles related to the Sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.container {
+    padding: 25px;
+    text-align: center;
+}
+
+.jumbotron {
+    padding: 10px !important;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+td {
+    border: none !important;
+}

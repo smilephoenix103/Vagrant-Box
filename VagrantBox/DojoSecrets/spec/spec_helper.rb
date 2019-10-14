@@ -13,6 +13,12 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+def log_in email: "john@doe.com", password: "password"
+  visit 'sessions/new' unless current_path == 'sessions/new'
+  fill_in 'login_email', with: email
+  fill_in 'login_password', with: password
+  click_button 'login'
+end
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

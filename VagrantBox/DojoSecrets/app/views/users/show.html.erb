@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Hey <%= @user.first_name %> <%= @user.last_name %></h1>
+        <a href="/users/<%= @user.id %>/edit" id="edit">Edit User</a>
+    </div>
+    <form action="/secrets" method="post">
+    <h2>New Secret</h2>
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <textarea name="secret[content]" id="content" cols="100" rows="1"></textarea>
+        <button class="btn btn-primary inline">Create Secret</button>
+    </form>
+    <div class="row">
+        <div class="col scroll">
+            <h2 class="pb-2 mb-4 border-bottom">Secrets</h2>
+            <% for secret in @user.secrets %>
+            <div class="row">
+                <div class="col">
+                    <p><%= secret.content %></p>
+                </div>
+                <div class="col">
+                    <a href="/secrets/<%= secret.id %>" data-method="delete" id="delete"><button class="btn btn-sm btn-danger">Delete</button></a>
+                </div>
+            </div>
+            <% end %>
+        </div>
+        <div class="col scroll">
+            <h2 class="pb-2 mb-4 border-bottom">Secrets Liked</h2>
+            <% for secret in @user.secrets_liked %>
+                <p><%= secret.content %></p>
+            <% end %>
+        </div>
+    </div>
+</div>

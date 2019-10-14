@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Edit User</h1>
+    </div>
+    <form action="/users/<%= @user.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="put">
+        <table class="table">
+            <tr>
+                <td><label for="first_name">First Name:</label></td>
+                <td><input class="form-control" type="text" name="user[first_name]" id="first_name" value="<%= @user.first_name %>"></td>
+            </tr>
+            <tr>
+                <td><label for="last_name">Last Name:</label></td>
+                <td><input class="form-control" type="text" name="user[last_name]" id="last_name" value="<%= @user.last_name %>"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input class="form-control" type="text" name="user[email]" id="register_email" value="<%= @user.email %>"></td>
+            </tr>
+        </table>
+        <button class="btn btn-success" type="submit" id="update">Update User</button>
+        <a href="/users/<%= @user.id %>" data-method="delete" id="delete"><button class="btn btn-danger">Delete User</button></a>
+    </form>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages]%>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
+</div>
