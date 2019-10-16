@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  def index
+  skip_before_action :require_login, except: [:destroy]
+  def new
   end
 
   def login

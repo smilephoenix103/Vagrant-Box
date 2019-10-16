@@ -12,7 +12,7 @@ class SecretsController < ApplicationController
   end
 
   def destroy
-    Secret.find(params[:id]).delete
+    Secret.find(params[:id]).destroy
     redirect_to "/users/#{current_user.id}"
   end
 

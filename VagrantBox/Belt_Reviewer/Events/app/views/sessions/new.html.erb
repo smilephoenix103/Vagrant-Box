@@ -1,0 +1,118 @@
+<div class="container">
+    <div class=jumbotron>
+        <h1 class="display-2">Login & Registration</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="pb-2 mt-4 mb-2 border-bottom">Login</h1>
+            <form action="/sessions" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <table class="table">
+                    <tr>
+                        <td><label for="Email">Email:</label></td>
+                        <td><input class="form-control" id="Email" type="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Session_Password">Password:</label></td>
+                        <td><input class="form-control" id="Session_Password" type="password" name="password"></td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+                <% if flash[:messages] %>
+                    <% for msg in flash[:messages] %>
+                        <p class="text-danger font-weight-bold m-0"><%= msg %></p>
+                    <% end %>
+                <% end %>
+        </div>
+        <div class="col">
+            <h1 class="pb-2 mt-4 mb-2 border-bottom">Register</h1>
+            <form action="/users" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <table class="table">
+                    <tr>
+                        <td><label for="First_name">First Name:</label></td>
+                        <td><input class="form-control" id="First_name" type="text" name="user[first_name]"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Last_name">Last Name:</label></td>
+                        <td><input class="form-control" id="Last_name" type="text" name="user[last_name]"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Email">Email:</label></td>
+                        <td><input class="form-control" id="Email" type="email" name="user[email]"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Location:</label></td>
+                        <td><input class="form-control" id="City" type="text" name="user[city]"></td>
+                        <td>
+                            <select id="State" name="user[state]">
+                                <option value="">Select State</option>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>	
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>	
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>	
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>	
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>			
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>	
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="User_Password">Password:</label></td>
+                        <td><input class="form-control" id="User_Password" type="password" name="user[password]"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Password_confirmation">Password Confirmation:</label></td>
+                        <td><input class="form-control" id="Password_confirmation" type="password" name="user[password_confirmation]"></td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

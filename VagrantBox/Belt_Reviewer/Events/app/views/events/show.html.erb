@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="navigation">
+        <a href="/events">Events Dashboard</a>
+        <a href="/sessions" data-method="delete">Logout</a>
+    </div>
+    <main>
+        <h1 class="display-2 pb-2 mt-4 mb-2 border-bottom"><%= @event.name %></h1>
+        <div class="row">
+            <div class="col-8">
+                <h4>Host: <%= @event.user.first_name %> <%= @event.user.last_name %></h4>
+                <h4>Date: <%= @event.date %></h4>
+                <h4>Host: <%= @event.city %>, <%= @event.state %></h4>
+                <h4>People joining event:</h4>
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>State</th>
+                    </thead>
+                    <% for user in @users %>
+                        <tr>
+                            <td><%= user.first_name %> <%= user.last_name %></td>
+                            <td><%= user.city %></td>
+                            <td><%= user.state %></td>
+                        </tr>
+                    <% end %>
+                </table>
+            </div>
+            <div class="col-4">
+                <h2>Discussion about this event:</h2>
+                <p>ADD COMMENT SECTTION</p>
+                <h2>Add Comment:</h2>
+                <form action="" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <textarea name="comment" id="" cols="30" rows="4"></textarea>
+                </form>
+                <button class="btn btn-primary" type="submit">Submit Comment</button>
+            </div>
+        </div>
+    </main>
+</div>

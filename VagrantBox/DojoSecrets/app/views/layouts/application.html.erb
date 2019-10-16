@@ -13,7 +13,9 @@
   <%= yield %>
   <div class="container">
     <% if current_user %>
-      <a href="/sessions/logout" id="logout">Logout</a>
+      <a href="/sessions/logout" id="logout">Logout</a> | 
+      <a href="/secrets">All Secrets</a> |
+      <a href="/users/list">All Users</a>
     <% end %>
   </div>
   </body>

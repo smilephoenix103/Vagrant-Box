@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login, only: [:create]
+  before_action :require_correct_user, except: [:create, :list]
+
   def create
     user = User.create(user_params)
     if user.errors.any?
@@ -31,14 +34,25 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).delete
+    User.find(params[:id]).destroy
     reset_session
     redirect_to '/'
+  end
+
+  def list
+    @users = User.all
+    render 'list'
   end
 
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password)
+  end
+
+  def require_correct_user
+    if current_user != User.find(params[:id])
+      redirect_to "/users/#{session[:user_id]}"
+    end
   end
 
 end

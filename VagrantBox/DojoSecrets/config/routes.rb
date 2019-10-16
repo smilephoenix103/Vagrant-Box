@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'sessions/logout' => 'sessions#destroy'
 
   post 'users' => 'users#create'
+  get 'users/list' => 'users#list'
   get 'users/:id' => 'users#show'
   get 'users/:id/edit' => 'users#edit'
   put 'users/:id' => 'users#update'
