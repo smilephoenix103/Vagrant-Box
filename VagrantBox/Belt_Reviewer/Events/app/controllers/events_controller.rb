@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :require_host, except: [:index, :create, :show]
+
   def index
     @user = current_user
     @instate = Event.where(state: @user.state)
@@ -17,8 +19,28 @@ class EventsController < ApplicationController
   end
 
   def show
+    if Event.exists?(params[:id])
+      @event = Event.find(params[:id])
+      @users = User.all
+    else
+      flash[:messages] = ["No Event with ID #{params[:id]}"]
+      redirect_to "/events"
+    end
+  end
+
+  def edit
     @event = Event.find(params[:id])
-    @users = User.all
+  end
+
+  def update
+    event = Event.find(params[:id])
+    if event.update(event_params)
+      flash[:messages] = ["Event Updated"]
+      redirect_to "/events"
+    else
+      flash[:messages] = event.errors.full_messages
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def destroy
@@ -26,7 +48,21 @@ class EventsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  private
   def event_params
     params.require(:event).permit(:name, :date, :city, :state).merge(user: current_user)
+  end
+
+  def require_host
+    if Event.exists?(params[:id])
+      event = Event.find(params[:id])
+      unless event.user == current_user
+        flash[:messages] = ["Must be Event Host to Edit/Delete"]
+        redirect_to "/events"
+      end
+    else
+      flash[:messages] = ["No Event with ID #{params[:id]}"]
+      redirect_to "/events"
+    end
   end
 end

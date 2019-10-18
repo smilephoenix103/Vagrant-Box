@@ -4,37 +4,45 @@
         <a href="/sessions" data-method="delete">Logout</a>
     </div>
     <main>
-        <h1 class="display-2 pb-2 mt-4 mb-2 border-bottom"><%= @event.name %></h1>
+        <h1 class="display-4 pb-2 mb-2 border-bottom "><%= @event.name %></h1>
         <div class="row">
             <div class="col-8">
-                <h4>Host: <%= @event.user.first_name %> <%= @event.user.last_name %></h4>
-                <h4>Date: <%= @event.date %></h4>
-                <h4>Host: <%= @event.city %>, <%= @event.state %></h4>
-                <h4>People joining event:</h4>
-                <table class="table">
+                <h5>Host: &nbsp;&nbsp;<%= @event.user.first_name %> <%= @event.user.last_name %></h5>
+                <h5>Date: &nbsp;&nbsp;<%= @event.date.strftime("%B %d, %Y") %></h5>
+                <h5>Location: &nbsp;&nbsp;<%= @event.city %>, <%= @event.state %></h5>
+                <h5>People joining event: &nbsp;&nbsp;<%= @event.users.count %></h5>
+                <table class="table sortable">
                     <thead>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>State</th>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>State</th>
+                        </tr>
                     </thead>
-                    <% for user in @users %>
+                    <tbody>
+                        <% for user in @event.users %>
                         <tr>
                             <td><%= user.first_name %> <%= user.last_name %></td>
                             <td><%= user.city %></td>
                             <td><%= user.state %></td>
                         </tr>
                     <% end %>
+                    </tbody>
                 </table>
             </div>
             <div class="col-4">
-                <h2>Discussion about this event:</h2>
-                <p>ADD COMMENT SECTTION</p>
-                <h2>Add Comment:</h2>
-                <form action="" method="post">
+                <h4>Discussion about this event:</h4>
+                <div class="comments">
+                    <% for comment in @event.comments %>
+                        <p class="m-1"><%= comment.comment %> - <%= comment.user.first_name %> <%= comment.user.last_name %></p>
+                    <% end %>
+                </div>
+                <h4>Add Comment:</h4>
+                <form action="/comments/<%= @event.id %>" method="post">
                     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                    <textarea name="comment" id="" cols="30" rows="4"></textarea>
+                    <textarea name="comment[comment]" cols="45" rows="4"></textarea>
+                    <button class="btn btn-primary" type="submit">Submit Comment</button>
                 </form>
-                <button class="btn btn-primary" type="submit">Submit Comment</button>
             </div>
         </div>
     </main>

@@ -4,7 +4,7 @@
         <a href="/sessions" data-method="delete">Logout</a>
     </div>
     <main>
-        <h1 class="pb-2 mt-4 mb-2 border-bottom">Edit Your Profile</h1>
+        <h1 class="display-4 pb-2 mb-2 border-bottom inline">Edit Your Profile</h1>
         <form action="/users/<%= @user.id %>" method="post">
                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
                 <input type="hidden" name="_method" value="patch">

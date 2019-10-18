@@ -13,7 +13,19 @@ Rails.application.routes.draw do
 
   # EVENTS ROUTES
   get 'events' => 'events#index'
-  get 'events/:id' => 'events#show'
   post 'events' => 'events#create'
+  get 'events/:id' => 'events#show'
+  get 'events/:id/edit' => 'events#edit'
+  patch 'events/:id' => 'events#update'
   delete 'events/:id' => 'events#destroy'
+
+  # JOIN ROUTES
+  post 'joins/:id' => 'joins#create'
+  delete 'joins/:id' => 'joins#destroy'
+
+  # COMMENT ROUTES
+  post 'comments/:id' => 'comments#create'
+  
+  get "*path" => redirect("/")
+
 end

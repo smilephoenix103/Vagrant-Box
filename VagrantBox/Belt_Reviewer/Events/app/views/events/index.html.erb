@@ -4,10 +4,10 @@
         <a href="/sessions" data-method="delete">Logout</a>
     </div>
     <main>
-        <h1 class="display-4 pb-2 mt-4 mb-2 border-bottom inline">Welcome, <%= @user.first_name %> <%= @user.state %></h1>
+        <h1 class="display-4 pb-2 mb-2 border-bottom inline">Welcome, <%= @user.first_name %></h1>
         <div id="instate">
-            <h4>Events in your state:</h4>
-            <table class="table">
+            <h4 class="mt-4">Events in your state:</h4>
+            <table class="table sortable">
                 <thead>
                     <th>Name</th>
                     <th>Date</th>
@@ -18,16 +18,25 @@
                 <% for event in @instate %>
                     <tr>
                         <td><a href="/events/<%= event.id %>"><%= event.name %></a></td>
-                        <td><%= event.date %></td>
+                        <td><%= event.date.strftime("%B %d, %Y") %></td>
                         <td><%= event.city %></td>
                         <td><%= event.user.first_name %> <%= event.user.last_name %></td>
+                        <% if event.user != @user && event.users.exclude?(@user)%>
+                            <td><a href="/joins/<%= event.id %>" data-method="post">Join</a></td>
+                        <% elsif event.user != @user && event.users.include?(@user) %>
+                            <td><a href="/joins/<%= event.id %>" data-method="delete">Cancel</a></td>
+                        <% end %>
+                        <% if event.user == @user %>
+                            <td><a href="/events/<%= event.id %>/edit">Edit</a> | <a href="/events/<%= event.id %>" data-method="delete">Delete</a></td>
+                        <% end %>
+
                     </tr>
                 <% end %>
             </table>
         </div>
         <div id="outstate">
-            <h4>Events in other states:</h4>
-            <table class="table">
+            <h4 class="mt-4">Events in other states:</h4>
+            <table class="table sortable">
                 <thead>
                     <th>Name</th>
                     <th>Date</th>
@@ -39,15 +48,23 @@
                 <% for event in @outstate %>
                     <tr>
                         <td><a href="/events/<%= event.id %>"><%= event.name %></td>
-                        <td><%= event.date %></td>
+                        <td><%= event.date.strftime("%B %d, %Y") %></td>
                         <td><%= event.city %></td>
                         <td><%= event.state %></td>
                         <td><%= event.user.first_name %> <%= event.user.last_name %></td>
+                        <% if event.user != @user && event.users.exclude?(@user)%>
+                            <td><a href="/joins/<%= event.id %>" data-method="post">Join</a></td>
+                        <% elsif event.user != @user && event.users.include?(@user) %>
+                            <td><a href="/joins/<%= event.id %>" data-method="delete">Cancel</a></td>
+                        <% end %>
+                        <% if event.user == @user %>
+                            <td><a href="/events/<%= event.id %>/edit">Edit</a> | <a href="/events/<%= event.id %>" data-method="delete">Delete</a></td>
+                        <% end %>
                     </tr>
                 <% end %>
             </table>
         </div>
-        <h4 class="pb-2 mt-4 mb-2 border-bottom inline">Add Event</h4>
+        <h4 class="mt-4">Add Event</h4>
         <div class="row">
             <div class="col-8">
                 <form action="/events" method="post">
@@ -65,11 +82,11 @@
                             <td><label>Location:</label></td>
                             <td><input class="form-control" type="text" name="event[city]" id="Name"></td>
                             <td>
-                                <select id="State" name="event[state]">
-                                    <option value="">Select State</option>
+                                <select class="form-control" id="State" name="event[state]">
+                                    <option value="">State</option>
                                     <option value="AL">AL</option>
                                     <option value="AK">AK</option>
-                                    <option value="AR">AR</option>	
+                                    <option value="AR">AR</option>
                                     <option value="AZ">AZ</option>
                                     <option value="CA">CA</option>
                                     <option value="CO">CO</option>
@@ -79,7 +96,7 @@
                                     <option value="FL">FL</option>
                                     <option value="GA">GA</option>
                                     <option value="HI">HI</option>
-                                    <option value="IA">IA</option>	
+                                    <option value="IA">IA</option>
                                     <option value="ID">ID</option>
                                     <option value="IL">IL</option>
                                     <option value="IN">IN</option>
@@ -91,14 +108,14 @@
                                     <option value="ME">ME</option>
                                     <option value="MI">MI</option>
                                     <option value="MN">MN</option>
-                                    <option value="MO">MO</option>	
+                                    <option value="MO">MO</option>
                                     <option value="MS">MS</option>
                                     <option value="MT">MT</option>
-                                    <option value="NC">NC</option>	
+                                    <option value="NC">NC</option>
                                     <option value="NE">NE</option>
                                     <option value="NH">NH</option>
                                     <option value="NJ">NJ</option>
-                                    <option value="NM">NM</option>			
+                                    <option value="NM">NM</option>
                                     <option value="NV">NV</option>
                                     <option value="NY">NY</option>
                                     <option value="ND">ND</option>
@@ -115,7 +132,7 @@
                                     <option value="VT">VT</option>
                                     <option value="VA">VA</option>
                                     <option value="WA">WA</option>
-                                    <option value="WI">WI</option>	
+                                    <option value="WI">WI</option>
                                     <option value="WV">WV</option>
                                     <option value="WY">WY</option>
                                 </select>
