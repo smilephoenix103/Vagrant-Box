@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline">Students</h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Classes Enrolled</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for student in @students %>
+            <tr>
+                <td><%= student.first_name %></td>
+                <td><%= student.last_name %></td>
+                <td><%= student.email %></td>
+                <td><%= student.courses.count %></td>
+                <td><a href="/students/<%= student.id %>">View</a>
+                <% if student == current_user %>
+                 | <a href="/students/<%= student.id %>/edit">Edit</a>
+                <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

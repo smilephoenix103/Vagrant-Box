@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline"><%= @instructor.first_name %> <%= @instructor.last_name %></h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == true %>
+        <a class="float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
+        <% end %>
+        <% if @instructor == current_user %>
+        <a class="float mr-1" href="/instructors/<%= @instructor.id %>/edit"><button class="btn btn-sm btn-primary">Edit Profile</button></a>
+        <% end %>
+    </div>
+    <h3>Teaching Courses</h3>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for course in @instructor.courses %>
+            <tr>
+                <td><%= course.code %></td>
+                <td><%= course.name %></td>
+                <td><%= course.subject %></td>
+                <td><a href="/courses/<%= course.id %>">View</a>
+                    <% if course.instructor == current_user %>
+                     | <a href="/courses/<%= course.id %>/edit">Edit</a>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

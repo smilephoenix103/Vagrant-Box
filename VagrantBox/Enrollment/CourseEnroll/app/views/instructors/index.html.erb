@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline">Instructors</h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+        <% if session[:admin] == true %>
+        <a class="float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
+        <% end %>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Classes Instructing</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for instructor in @instructors %>
+            <tr>
+                <td><%= instructor.first_name %></td>
+                <td><%= instructor.last_name %></td>
+                <td><%= instructor.email %></td>
+                <td><%= instructor.courses.count %></td>
+                <td><a href="/instructors/<%= instructor.id %>">View</a>
+                <% if instructor == current_user %>
+                 | <a href="/instructors/<%= instructor.id %>/edit">Edit</a>
+                <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

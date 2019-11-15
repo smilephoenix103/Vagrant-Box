@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline">Edit <%= @instructor.first_name %> <%= @instructor.last_name %></h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-primary">Instructors</button></a>
+        <a class="float mr-1" href="/instructors/<%= @instructor.id %>"><button class="btn btn-sm btn-primary">Back</button></a>
+    </div>
+    <form action="/instructors/<%= @instructor.id %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="put">
+        <table class="table table-borderless">
+            <tr>
+                <td><label for="first_name">First Name:</label></td>
+                <td><input class="form-control" type="text" name="instructor[first_name]" id="first_name" value="<%= @instructor.first_name %>"></td>
+            </tr>
+            <tr>
+                <td><label for="last_name">Last Name:</label></td>
+                <td><input class="form-control" type="text" name="instructor[last_name]" id="last_name" value="<%= @instructor.last_name %>"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input class="form-control" type="email" name="instructor[email]" id="email" value="<%= @instructor.email %>"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input class="form-control" type="password" name="instructor[password]" id="password"></td>
+            </tr>
+            <tr>
+                <td><label for="password_confirmation">Confirm Password:</label></td>
+                <td><input class="form-control" type="password" name="instructor[password_confirmation]" id="password_confirmation"></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" type="submit">Update Profile</button>
+        <% if flash[:messages] %>
+            <% for error in flash[:messages] %>
+                <p class="text-danger font-weight-bold m-0"><%= error %></p>
+            <% end %>
+        <% end %>
+    </form>
+</div>

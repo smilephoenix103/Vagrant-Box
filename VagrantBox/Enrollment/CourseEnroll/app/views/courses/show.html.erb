@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline"><%= @course.name %></h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == true %>
+        <a class="float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
+        <% end %>
+        <% if @course.instructor == current_user %>
+        <a class="float mr-1" href="/courses/<%= @course.id %>/edit"><button class="btn btn-sm btn-primary">Edit Course</button></a>
+        <% end %>
+        <% if @course.students.exclude?(current_user) && session[:admin] == false %>
+        <a class="float mr-1" href="/enrolls/<%= @course.id %>/<%= current_user.id %>"><button class="btn btn-sm btn-primary">Enroll</button></a>
+        <% end %>
+    </div>
+    <table class="mb-5">
+        <tr>
+            <td class="font-weight-bold">Instructor:</td>
+            <td> <%= @course.instructor.first_name %> <%= @course.instructor.last_name %></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold pr-5">Course Code:</td>
+            <td><%= @course.code %></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Subject:</td>
+            <td><%= @course.subject %></td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Students:</td>
+            <td><%= @course.students.count %></td>
+        </tr>
+    </table>
+    <h3>Students Enrolled</h3>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for student in @course.students %>
+            <tr>
+                <td><%= student.first_name %></td>
+                <td><%= student.last_name %></td>
+                <td><%= student.email %></td>
+                <td><a href="/students/<%= student.id %>">View</a></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

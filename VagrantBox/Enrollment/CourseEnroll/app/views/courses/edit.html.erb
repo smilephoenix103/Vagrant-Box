@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline">Edit <%= @course.name %></h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-primary">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-primary">Courses</button></a>
+    </div>
+    <form action="/courses/<%= @course.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="put">
+        <table class="table table-borderless">
+            <tr>
+                <td><label for="code">Course Code:</label></td>
+                <td><input class="form-control" type="text" name="course[code]" value="<%= @course.code %>"></td>
+            </tr>
+            <tr>
+                <td><label for="name">Course Name:</label></td>
+                <td><input class="form-control" type="text" name="course[name]" value="<%= @course.name %>"></td>
+            </tr>
+            <tr>
+                <td><label for="subject">Subject:</label></td>
+                <td><input class="form-control" type="text" name="course[subject]" value="<%= @course.subject %>"></td>
+            </tr>
+        </table>
+        <button class="btn btn-success mb-2" type="submit">Update Course</button>
+    </form>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
+</div>

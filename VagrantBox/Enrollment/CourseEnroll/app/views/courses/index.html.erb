@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline">Courses</h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == true %>
+        <a class = "float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
+        <% end %>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Instructor</th>
+                <th>Students</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for course in @courses %>
+            <tr>
+                <td><%= course.code %></td>
+                <td><%= course.name %></td>
+                <td><%= course.subject %></td>
+                <td><%= course.instructor.last_name %></td>
+                <td><%= course.students.count %></td>
+                <td><a href="/courses/<%= course.id %>">View</a>
+                    <% if course.instructor == current_user %>
+                     | <a href="/courses/<%= course.id %>/edit">Edit</a>
+                    <% end %>
+                    <% if course.students.exclude?(current_user) && session[:admin] == false %>
+                     | <a href="/enrolls/<%= course.id %>/<%= session[:user_id] %>">Enroll</a>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
+</div>

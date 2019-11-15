@@ -1,0 +1,59 @@
+<div class="container center">
+    <div class="jumbotron">
+        <h1 class="display-4">Instructor Portal</h1>
+        <a href="/sessions/students">Student Portal</a>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Login</h2>
+            <form action="/sessions/instructors" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input class="form-control" type="email" name="email" id="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input class="form-control" type="password" name="password" id="password"></td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary mb-2" type="submit">Login</button>
+            </form>
+            <% if flash[:messages] %>
+                <% for error in flash[:messages]%>
+                    <p class="text-danger font-weight-bold m-0"><%= error %></p>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col">
+            <h2>Register</h2>
+            <form action="/instructors" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><label for="first_name">First Name:</label></td>
+                        <td><input class="form-control" type="text" name="instructor[first_name]" id="first_name"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="last_name">Last Name:</label></td>
+                        <td><input class="form-control" type="text" name="instructor[last_name]" id="last_name"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input class="form-control" type="email" name="instructor[email]" id="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input class="form-control" type="password" name="instructor[password]" id="password"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password_confirmation">Confirm Password:</label></td>
+                        <td><input class="form-control" type="password" name="instructor[password_confirmation]" id="password_confirmation"></td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
