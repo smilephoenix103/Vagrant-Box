@@ -4,6 +4,9 @@
         <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
         <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
         <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == false %>
+        <a class="float mr-1" href="/students"><button class="btn btn-sm btn-info">Students</button></a>
+        <% end %>
         <% if session[:admin] == true %>
         <a class="float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
         <% end %>
@@ -53,4 +56,9 @@
             <% end %>
         </tbody>
     </table>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
 </div>

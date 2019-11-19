@@ -1,2 +1,46 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+<div class="container">
+    <div class="pb-2 mt-4 mb-4 border-bottom">
+        <h1 class="display-4 inline"><%= @student.first_name %> <%= @student.last_name %></h1>
+        <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
+        <a class="float mr-1" href="/courses"><button class="btn btn-sm btn-info">Courses</button></a>
+        <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == false %>
+        <a class="float mr-1" href="/students"><button class="btn btn-sm btn-info">Students</button></a>
+        <% end %>
+        <% if @student == current_user %>
+        <a class="float mr-1" href="/students/<%= @student.id %>/edit"><button class="btn btn-sm btn-primary">Edit Profile</button></a>
+        <% end %>
+    </div>
+    <h3>Enrolled Courses</h3>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Instructor</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for course in @student.courses %>
+            <tr>
+                <td><%= course.code %></td>
+                <td><%= course.name %></td>
+                <td><%= course.subject %></td>
+                <td><%= course.instructor.last_name %></td>
+                <td><a href="/courses/<%= course.id %>">View</a>
+                    <% if course.students.include?(current_user) %>
+                     | <a href="/enrolls/<%= course.id %>/<%= @student.id %>" data-method="delete">Delete</a>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
+</div>

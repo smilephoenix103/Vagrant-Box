@@ -3,6 +3,9 @@
         <h1 class="display-4 inline">Courses</h1>
         <a class="float" href="/sessions" data-method="delete"><button class="btn btn-sm btn-info">Logout</button></a>
         <a class="float mr-1" href="/instructors"><button class="btn btn-sm btn-info">Instructors</button></a>
+        <% if session[:admin] == false %>
+        <a class = "float mr-1" href="/students"><button class="btn btn-sm btn-info">Students</button></a>
+        <% end %>
         <% if session[:admin] == true %>
         <a class = "float mr-1" href="/courses/new"><button class="btn btn-sm btn-primary">Add Course</button></a>
         <% end %>

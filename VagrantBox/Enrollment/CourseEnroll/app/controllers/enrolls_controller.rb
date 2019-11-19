@@ -11,4 +11,16 @@ class EnrollsController < ApplicationController
         end
     end
 
+    def destroy
+        if Student.find(params[:sid]) == current_user
+            enrollment = Enrollment.find_by(course: Course.find(params[:cid]), student: Student.find(params[:sid]))
+            enrollment.destroy
+            flash[:messages] = ["Unenrolled from class"]
+            redirect_to "/courses"
+        else
+            flash[:messages] = ["Cannot unenroll other students"]
+            redirect_to "/courses"
+        end
+    end
+
 end

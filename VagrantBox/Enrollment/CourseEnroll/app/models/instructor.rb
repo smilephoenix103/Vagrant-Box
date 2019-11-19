@@ -1,6 +1,6 @@
 class Instructor < ApplicationRecord
   has_secure_password
-  has_many :courses
+  has_many :courses, dependent: :destroy
 
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
   validates :first_name, :last_name, presence: true, length: { minimum: 2 }

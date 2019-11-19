@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   #ENROLLS
   get 'enrolls/:cid/:sid' => 'enrolls#create'
+  delete 'enrolls/:cid/:sid' => 'enrolls#destroy'
 
   #CATCH ALL OTHERS
   get "*path" => redirect('/')
