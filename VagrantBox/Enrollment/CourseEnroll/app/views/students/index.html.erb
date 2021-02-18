@@ -31,4 +31,9 @@
             <% end %>
         </tbody>
     </table>
+    <% if flash[:messages] %>
+        <% for error in flash[:messages] %>
+            <p class="text-danger font-weight-bold m-0"><%= error %></p>
+        <% end %>
+    <% end %>
 </div>

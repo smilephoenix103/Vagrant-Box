@@ -36,7 +36,7 @@ class StudentsController < ApplicationController
     if student == current_user
       student.destroy
       flash[:messages] = ["Student deleted"]
-      redirect_to '/students'
+      redirect_to '/'
     else
       flash[:messages] = ["Cannot delete another student"]  
       redirect_to '/students'
